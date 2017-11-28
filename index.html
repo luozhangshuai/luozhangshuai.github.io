@@ -5,49 +5,22 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1" />
     <title>Fucking</title>
-    <meta name="keywords" content="Fucking" />
-    <meta name="description" content="Fucking" />
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-    <form>
-        <div class="form-group">
-            <label for="">key</label>
-            <input type="text" id="key" class="form-control" value="key" placeholder="" readonly="">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">value</label>
-            <input type="text" id="value" value="test" class="form-control" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">输出</label>
-            <div id="output"></div>
-        </div>
-        <button type="button" class="btn btn-default btn-block" onclick="setCookie('key')">保存</button>
-        <button type="button" class="btn btn-default btn-block" onclick="getCookie('key')">读取</button>
-        <button type="button" class="btn btn-default btn-block" onclick="delCookie('key')">删除</button>
-    </form>
     <script>
     // 设置
-    function setCookie(name ) {
-    	v = value.value
+    function setCookie(name, value ) {
         var Days = 30;
         var exp = new Date();
         exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-        document.cookie = name + "=" + escape(v) + ";expires=" + exp.toGMTString();
-        output.innerHTML = '保存成功'
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
     }
 
     // 获取
     function getCookie(name) {
         var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
         if (arr = document.cookie.match(reg)) {
-            output.innerHTML = unescape(arr[2])
             return	unescape(arr[2])
         } else {
-            output.innerHTML = '读取失败'
+            return null;
         }
     }
     // 删除
@@ -57,12 +30,36 @@
         var cval = getCookie(name);
         if (cval != null) {
             document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-            output.innerHTML = '删除成功'
-        } else {
-            output.innerHTML = '删除失败'
-        }
+        } 
     }
     </script>
+    <script>
+    	alert('before:'+getCookie('king'))
+    	setCookie('king','3er234523');
+    	alert('new cookie:'+getCookie('king'))
+    </script>
+    <meta name="keywords" content="Fucking" />
+    <meta name="description" content="Fucking" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+    <form>
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">value</label>
+            <input type="text" id="value" value="test" class="form-control" placeholder="">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">输出</label>
+            <div id="output"></div>
+        </div>
+        <button type="button" class="btn btn-default btn-block" onclick="setCookie('king', document.getElementById('value').value)">保存</button>
+        <button type="button" class="btn btn-default btn-block" onclick="alert(getCookie('king'))">读取</button>
+        <button type="button" class="btn btn-default btn-block" onclick="delCookie('king')">删除</button>
+    </form>
+    
 </div>
 
 </body>
