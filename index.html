@@ -1,66 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1" />
-    <title>Fucking</title>
-    <script>
-    // 设置
-    function setCookie(name, value ) {
-        var Days = 30;
-        var exp = new Date();
-        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
-    }
-
-    // 获取
-    function getCookie(name) {
-        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-        if (arr = document.cookie.match(reg)) {
-            return	unescape(arr[2])
-        } else {
-            return null;
-        }
-    }
-    // 删除
-    function delCookie(name) {
-        var exp = new Date();
-        exp.setTime(exp.getTime() - 1);
-        var cval = getCookie(name);
-        if (cval != null) {
-            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-        } 
-    }
-    </script>
-    <script>
-    	alert('before:'+getCookie('king'))
-    	setCookie('king','3er234523');
-    	alert('new cookie:'+getCookie('king'))
-    </script>
-    <meta name="keywords" content="Fucking" />
-    <meta name="description" content="Fucking" />
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
 </head>
 <body>
-    <div class="container">
-    <form>
+    <h1 id="h1">index</h1>
+    <div id="introduce">
+         <h2>introduce</h2>
+        <ul>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+    </div>
+    <div id="intention">
+        <h2>intention</h2>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+    <div id="history">
+        <h2>history</h2>
+        <ul>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+    </div>
+    <div id="school">
+        <h2>school</h2>
+        <ul>
+            <li><a href="http://www.cqdxxy.com.cn/" target="_blank">http://www.cqdxxy.com.cn/</a></li>
+            <li>2015.6</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+    </div>
+    <div id="works">
+        <h2>works</h2>
+        <ul>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
+    </div>
+    <div id="skills">
+        <h2>skills</h2>
+        <ul>
+            <li>React</li>
+            <li>Vue</li>
+            <li>jQuery</li>
+            <li>Angular</li>
+            <li>Webpack</li>
+            <li>Node</li>
+        </ul>
+    </div>
 
-        <div class="form-group">
-            <label for="exampleInputPassword1">value</label>
-            <input type="text" id="value" value="test" class="form-control" placeholder="">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">输出</label>
-            <div id="output"></div>
-        </div>
-        <button type="button" class="btn btn-default btn-block" onclick="setCookie('king', document.getElementById('value').value)">保存</button>
-        <button type="button" class="btn btn-default btn-block" onclick="alert(getCookie('king'))">读取</button>
-        <button type="button" class="btn btn-default btn-block" onclick="delCookie('king')">删除</button>
-    </form>
-    
-</div>
-
+    <div id="lastModified" style="display: block;position: fixed;right: 10px;bottom: 10px;color: #333;">Last Modified: 2017128172204</div>
 </body>
 </html>
