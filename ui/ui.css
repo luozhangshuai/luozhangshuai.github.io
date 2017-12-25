@@ -97,7 +97,9 @@ ui-confirm,
     transition: all .1s;
 }
 
-
+.bw-toast.out{
+    animation: opa .1s;
+}
 
 
 
@@ -131,3 +133,9 @@ ui-confirm,
 	background-color: #03a9f4;
 	color: #fff;
 }*/
+
+
+@keyframes opa { 
+    0% { opacity: 1;} 
+    100% { opacity: 0;} 
+} 
