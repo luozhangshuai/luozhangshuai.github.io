@@ -1,0 +1,133 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    /*font-family: '黑体'*/
+}
+
+ui-shade,
+.ui-shade ui-confirm,
+.ui-confirm {
+    display: block;
+}
+
+.ui-btn {
+    background-color: rgba(0,0,0,.04);
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 5px 12px;
+    height: 32px;
+}
+.ui-btn:hover{
+    background-color: #ddd;
+}
+
+
+ui-shade,
+.ui-shade {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; // background-color: rgba(0, 0, 0, 0.2);
+}
+
+ui-confirm,
+.ui-confirm {
+    position: fixed;
+    width: 260px;
+    height: 130px;
+    background-color: #fff;
+    border-radius: 3px; 
+    box-shadow: 2px 2px 8px #666;
+    /*box-shadow: 2px 2px 8px #9E9E9E;*/
+    padding: 20px 10px 10px;
+    top: 200px;
+    left: 500px;
+}
+.ui-confirm-content{
+    font-size: 20px;
+    line-height: 1.4;
+}
+.ui-confirm-operate{
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    height: 32px;
+}
+.ui-confirm-operate .ui-btn{
+    margin-right: 10px;
+}
+
+.ui-calendar {
+    /*position: fixed;*/
+    top: 100px;
+    left: 200px;
+    font-size: 12px;
+    width: 224px;
+    display: table-row-group;
+    margin: 40px;
+}
+
+.ui-calendar .ui-calendar-row {
+    display: table-row;
+}
+
+
+
+
+
+.bw-toast{
+    box-sizing: border-box;
+    position: fixed;
+    right: calc(50% - 200px);
+    height: 36px;
+    width: 400px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    padding: 10px 10px;
+    background-color: #000;
+    transition: all .1s;
+}
+
+
+
+
+
+
+
+/*.ui-calendar>.ui-calendar-row:after {
+    clear: both;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}*/
+.ui-calendar .ui-calendar-row>div{
+	display: table-cell;
+	width: 24px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 12px;
+	margin: 4px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 50%;
+}
+.ui-calendar .ui-calendar-row>div.today {
+	background-color: #03a9f4;
+	color: #fff;
+}
+/*.ui-calendar>.ui-calendar-row>div:hover{
+	background-color: #03a9f4;
+	color: #fff;
+}*/

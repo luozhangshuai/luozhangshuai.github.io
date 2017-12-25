@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+	<div>
+		<button id="btn">confirm</button>
+		<!-- <ui-shade></ui-shade> -->
+		<!-- <ui-confirm>
+			<div class="ui-confirm-content">欢迎使用日历帮助中心！</div>
+			<div class="ui-confirm-operate">
+				<button class="ui-btn">确定</button><button class="ui-btn">取消</button>
+			</div>
+		</ui-confirm> -->
+		<!-- <div class="bw-toast" style="bottom: 0;">欢迎使用日历帮助中心！</div> -->
+	</div>
+
+
+	<script>
+		/**
+		 * black & white
+		 * confirm 1.0
+		 */
+		var bw = {};
+		bw.confirm = function(title, callback) {
+			// var shade = document.createElement('ui-shade');
+			// shade.id = 'ui-shade'+new Date().getTime();
+			// shade.setAttribute('type', 'shade');
+			// shade.setAttribute('style', 'background-color: rgb(0, 0, 0); opacity: .1;');
+			// document.body.append(shade)
+
+			var defaults = {};
+			var confirm = document.createElement('ui-confirm');
+			var content = document.createElement('div');
+			content.classList = 'ui-confirm-content';
+			var txt = document.createTextNode(title);
+			content.append(txt);
+			var operate = document.createElement('div');
+				operate.classList = 'ui-confirm-operate';
+			var btn  = document.createElement('button');
+			btn.classList = 'ui-btn';
+			btn.innerHTML = '确定';
+			btn.onclick = function() {
+				confirm.parentNode.removeChild(confirm);
+				callback(true);
+			}
+			operate.append(btn);
+			var btn2  = document.createElement('button');
+			btn2.classList = 'ui-btn';
+			btn2.innerHTML = '取消';
+			btn2.onclick = function() {
+				confirm.parentNode.removeChild(confirm);
+				callback(false);
+			}
+			operate.append(btn2);
+			confirm.append(content);
+			confirm.append(operate);
+			document.body.append(confirm);
+		}
+		bw.list = []
+		bw.toast = function( txt ){
+			var i = 38;
+			if( bw.list.length ){
+				bw.list.forEach( function(element, index) {
+					element.setAttribute('style', 'bottom: '+(bw.list.length-index)*i+'px;');
+				});
+			}
+			var toast = document.createElement('div');
+			toast.classList = 'bw-toast';
+			toast.setAttribute('style', 'bottom: -36px;');
+
+			var msg = document.createTextNode(txt);
+			toast.append(msg);
+			bw.list.push(toast);
+			document.body.append(toast);
+		
+			bw.once(function(){
+				toast.setAttribute('style', 'bottom: 0px;');
+			}, 0)
+			bw.once(function(){
+				toast.parentNode.removeChild(toast);
+				bw.list.shift();
+			}, 2000)
+		}
+
+		btn.onclick = function () {
+			// bw.confirm('欢迎使用日历帮助中心！', function(res){
+			// 	console.log(res)
+			// 	bw.toast('欢迎使用日历帮助中心！'+res)
+			// })
+			bw.toast('欢迎使用日历帮助中心！')
+			
+		}
+		
+
+		bw.once = function(callback , time){
+			var timer = setTimeout(function(){
+				callback && callback();
+			}, time);
+			return timer;
+		}
+		
+		// var t = setInterval(function(){
+		// 	bw.toast(new Date())
+		// },1000)
+	</script>
+
+	<div class="ui-calendar" style="display: none;">
+		<div>
+			<span>2017年12月 </span>
+			<i type="prev-m"><</i>
+			<i type="next-m">></i>
+		</div>
+		<div id="div"></div>
+	</div>
+	
+	<script>
+		var weeks = ['日', '一', '二', '三', '四', '五', '六'];
+		var calendarHtml = ''
+		
+		var weeksHtml = weeks.map( (item, index) => {
+			return `<div>${item}</div>`;
+		})
+		calendarHtml += `<div class="ui-calendar-row">${weeksHtml.join('')}</div>`;
+		args = 11;
+		var now = new Date();
+		// 获取今天
+		var nowYear = now.getFullYear()
+			, nowMonth = now.getDate()
+			, nowToday = now.getDate();
+		
+
+		// 获取这个月的第一天是星期几
+		var firstDay = new Date(now.getFullYear(), args, 1).getDay();
+		// 获取当前月份的天数
+		var totalDay = new Date(now.getFullYear(), args+1, 0).getDate();
+		// 获取上一个月份的天数
+		var prevMonthDay = new Date(now.getFullYear(), args, 0).getDate();
+		var dates = []
+		var start = 0;
+	    for(var i = 1; i <= 6; i++){
+			dates[i] = [];
+			dates[i].push('<div class="ui-calendar-row">');
+	    	for (var j = 1; j <= 7; j++) {
+
+	    		start++;
+	    		var d = start - firstDay;
+
+				var year = now.getFullYear()
+    				, month = (now.getMonth() + 1)
+    				;
+
+	    		if(d<=0){
+	    			month--;
+	    			if(month<=0){
+	    				month=12;
+	    				year--;
+	    			}
+	    			dates[i].push(`
+	    				<div year="${year}" 
+	    					month="${month}" 
+	    					day="${prevMonthDay-firstDay+j}"
+	    					date="${year}-${month}-${prevMonthDay-firstDay+j}"
+
+	    			 		>${prevMonthDay-firstDay+j}</div>
+	    			 	`)
+
+	    		
+	    		}
+	    		else if(d > totalDay){
+	    			month++;
+	    			if(month>=12){
+	    				month=1;
+	    				year++;
+	    			}
+	    			dates[i].push(`
+	    				<div year="${year}" 
+	    					month="${month}" 
+	    					day="${d-totalDay}"
+	    					date="${year}-${month}-${d-totalDay}">${d-totalDay}</div>`)
+	    		}
+	    		else if(d>0&&d<=totalDay){
+	    			if( nowToday == d ){
+						dates[i].push(`
+		    				<div year="${year}" 
+		    					month="${month}" 
+		    					day="${d}"
+		    					date="${year}-${month}-${d}"
+		    					class='today'
+		    				>${d}</div>
+
+		    			`)
+	    			}else{
+	    				dates[i].push(`
+		    				<div year="${year}" 
+		    					month="${month}" 
+		    					day="${d}"
+		    					date="${year}-${month}-${d}"
+		    				>${d}</div>
+
+		    			`)
+	    			}
+
+
+
+	    			
+	    		}
+	    	}
+
+	    	dates[i].push('</div>');
+	    }
+		calendarHtml += dates.map(item=>item.join('')).join('')
+		div.innerHTML = calendarHtml
+	</script>
+</body>
+</html>
