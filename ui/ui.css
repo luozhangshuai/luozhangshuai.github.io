@@ -83,22 +83,21 @@ ui-confirm,
 
 
 .bw-toast{
-    box-sizing: border-box;
+    font-family: Arial;
     position: fixed;
-    right: calc(50% - 200px);
-    height: 36px;
-    width: 400px;
-    border-radius: 3px;
+    top: -26px;
+    border-radius: 2px;
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1;
-    padding: 10px 10px;
-    background-color: #000;
+    padding: 6px 10px;
+    background-color: rgba(0, 0, 0, .8);
     transition: all .1s;
+    opacity: 0;
 }
 
-.bw-toast.out{
-    animation: opa .1s;
+.bw-toast.toastout{
+    animation: toastout .1s forwards;
 }
 
 
@@ -135,7 +134,20 @@ ui-confirm,
 }*/
 
 
-@keyframes opa { 
+@keyframes toastout { 
     0% { opacity: 1;} 
-    100% { opacity: 0;} 
+    100% { opacity: 0;top: -26px;} 
 } 
+
+
+
+
+/* css 禁止选中文本。在 IE < 10 和Opera < 15中，我们需要在需要禁止选中的元素上面添加一个属性unselectable="on" */
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+    -khtml-user-select: none; /* Konqueror */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently not supported by any browser */
+}

@@ -1,0 +1,53 @@
+{
+    "name": "Dog",
+    "app": {
+        "urls": [ "http://www.domain.com/chrome/" ],
+        "launch": {
+          "web_url": "http://www.domain.com/chrome/index.html"
+        }
+    },
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Dog",
+    "browser_action":
+    {
+        "default_icon": "/icon/icon19.png",
+        "default_title": "Dog"
+
+    },
+    "icons":
+    {
+        "128": "/icon/icon128.png",
+        "64": "/icon/icon64.png",
+        "32": "/icon/icon32.png",
+        "16": "/icon/icon16.png"
+    },
+    "background":
+    {
+        "scripts": ["/js/background.js"]
+    },
+    "chrome_url_overrides":{
+         "newtab": "blank.html"
+    },
+
+    "options_page": "options.html",
+    "permissions": [
+        "tabs",
+        "http://*/*",
+        "https://*/*",
+        "file://*/*",
+        "storage",
+        "usb"
+    ],
+    "content_scripts": [
+    {
+        "all_frames": false,
+        "js": [
+            "/js/jquery.min.js",
+            "/js/dog.js"
+        ],
+        "css": [],
+        "matches": ["http://*/*", "https://*/*", "file://*/*"],
+        "run_at": "document_end"
+    }]
+}
