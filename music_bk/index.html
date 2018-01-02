@@ -1,0 +1,79 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>A</title>
+	<script type="text/javascript" src="./lib/angular.min.js"></script>
+	<script type="text/javascript" src="./lib/angular-animate.min.js"></script>
+
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<div id="app" ng-app="app" ng-controller="myCtrl">
+	<div id="title_bar">
+	    <a id="close" href="#"></a>
+	    <a id="maximize" href="#"></a>
+	    <a id="minimize" href="#"></a>
+	</div>
+	<div class="tool">
+	    <form>
+	        search:
+	        <input type="text"  ng-model="search" />
+	        <button  ng-click="getList()">搜索</button>
+	    </form>
+		
+		<div class="lists">
+			<dl ng-repeat="item in songs">
+				<dd>{{ $index | order }}</dd>
+				<dd ng-click="paly(item,$index)">
+					<span>播放</span>
+				</dd>
+				<dd>{{item.name}}</dd>
+				<dd>
+					<span ng-repeat="ar in item.ar">{{ar.name}}<i ng-if="$index < item.ar.length-1">/</i></span>
+				</dd>
+				<dd>
+					<span data-id="{{item.al.id}}">{{item.al.name}}</span>
+				</dd>
+				<dd>
+					
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="audio-controls">
+		<audio id="audio" controls="" autoplay=""></audio>
+
+		<button ng-click="prev()">上一首</button>
+		<button ng-click="next()">下一首</button>
+		<button ng-click="nextPage()">下一页</button>
+		<button ng-click="prevPage()">上一页</button>
+   <!--   <select name="" id="" class="">
+     	<option value="1">单曲循环</option>
+     	<option value="2">单曲播放</option>
+     	<option value="3" selected>顺序播放</option>
+     	<option value="4">列表循环</option>
+     	<option value="5">随机播放</option>
+     </select> -->
+
+
+	</div>
+	<div class="history ng-hide" >
+		<div>
+		</div>
+		<div>
+			<div class="lists">
+				<dl ng-repeat="item in history">
+					<dd style="width: 40px;"></dd>
+					<dd style="width: 340px;">{{item.name}}</dd>
+					<dd style="width: 100px">{{item.ar[0].name}}</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>

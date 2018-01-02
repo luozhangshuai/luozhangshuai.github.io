@@ -28,7 +28,7 @@ var audio = document.getElementById('audio');
 var app = angular.module('app', ['ngAnimate']);
 app.controller('myCtrl', function($scope, $http) {
     $scope.songs= [];
-    $scope.search = '张卫健';
+    $scope.search = '';
 
     // $scope.history = []
     // var history = []
@@ -110,7 +110,7 @@ app.controller('myCtrl', function($scope, $http) {
             $scope.songs = response.data.result.songs;
         });
     }
-    $scope.getList()
+    // $scope.getList()
     var isPlay = false;
 
     $scope.paly = function( data, index ){
