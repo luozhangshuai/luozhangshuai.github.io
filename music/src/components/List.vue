@@ -5,41 +5,43 @@
 			<dl v-for="(song, index) in songs">
 				<dd>{{index | order}}</dd>
 				<dd>
-					<span v-if="!song.isplay"  @click="play(song, index)">播放</span>
-					<span v-else @click="pause(song, index)">暂停</span>
+					<span @click="play(song, index)">0</span>
+					
 				</dd>
 				<dd>{{song.name}}</dd>
 			</dl>
 		</div>
-		
-		<div class="controls">
-		<audio id="audio" controls="" autoplay=""></audio>
-			<div v-if="current">
-				<img :src="current.al.picUrl" alt="" width="40" height="40">
-			</div>
-
-
-		</div>
+		<player :src="audioSrc"></player>
 	</div>
 </template>
 
 <script>
+import player from './player'
+
 export default {
 	name: 'List',
 	data () {
 		return {
-			search: '',
+			search: '123',
 			songs: [],
 			current: '',
-			currentSongID: 0
+			currentSongID: 0,
+			picUrl:'',
+			audioSrc:''
 		}
 	},
+	components:{player},
   	created(){
-  		this.get();
+  		// this.get();
 	},
 	methods: {
+		timeupdate(){
+			console.log(this.$refs.audio);
+		},
 		get(){
 			let _this = this;
+			if(!_this.search)
+				return
 		  	_this.axios.get('',{
 				params: {
 					type  : 'search',
@@ -60,12 +62,9 @@ export default {
 		},
 		play( data, index ){
 			console.log(data)
-
-			if(data.iscurrent == 1){
-				audio.play();
-				data.isplay = 1;
-				return false;
-			}
+			var _this = this;
+			_this.picUrl = data.al.picUrl
+			
 			this.current = data;
 			console.log(this.current)
 	        this.songs.map((song)=>{
@@ -80,7 +79,7 @@ export default {
 		  	}).then(function (response) {
 				data.isplay = 1;
 				data.iscurrent = 1;
-		    	audio.src = response.data.data[0].url;
+		    	_this.audioSrc = response.data.data[0].url;
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -91,7 +90,20 @@ export default {
 	    },
 	    page(){
 
-	    }
+	    },
+
+	    nextSong(){
+
+	    },
+		prevSong(){
+
+		},
+		nextPage(){
+
+		},
+		prevPage(){
+
+		}
     }
 }
 </script>
@@ -102,17 +114,17 @@ export default {
 		overflow: hidden;
 		margin: 0;
 	}
-	.songs>dl:nth-child(2n-1){
+	/*.songs>dl:nth-child(2n-1){
 		background-color: #eee;
 	}
 	.songs>dl:hover{
 		background-color: #bdbdbd;
-	}
+	}*/
 	.songs>dl>dd{
 		display: inline-block;
 		float: left;
-		height: 26px;
-		line-height: 26px;
+	/*	height: 26px;
+		line-height: 26px;*/
 		margin: 0;
 	    font-size: 14px;
     	padding: 0 6px;
@@ -121,11 +133,6 @@ export default {
 	    cursor: pointer;
 	}
 
-	.controls{
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 50px;
-	}
+	
+
 </style>
