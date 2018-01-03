@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html, #app, #map {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=GGMllXTrIrzwnAo3Ci2Dowd5hbEZ3cky"></script>
+</head>
+<body>
+
+	<div id="map"></div>
+		
+		
+
+	<script>
+		
+		// 百度地图API功能
+		var map = new BMap.Map("map");    // 创建Map实例
+		map.centerAndZoom(new BMap.Point(120.389359, 30.311447), 15);  // 初始化地图,设置中心点坐标和地图级别
+		map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+		//map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+		
+
+		function showInfo(e){
+			console.log(e.point.lng + ", " + e.point.lat);
+		}
+		map.addEventListener("click", showInfo);
+
+
+		var place = [
+			{
+				lng:120.389359,
+				lat:30.311447
+			},{
+				lng:120.127620,
+				lat:30.342320
+			},{
+				lng:120.555447,
+				lat:30.405332
+			}
+
+
+			//========================//
+			//========================//
+			,{
+				lng:106.581442,
+				lat:29.517082
+			},{
+				lng:106.581006,
+				lat:29.513538
+			},{
+				lng:106.518987,
+				lat:29.512902
+			},{
+				lng:106.496709,
+				lat:29.589608
+			},{
+				lng:106.501057,
+				lat:29.604097
+			},{
+				lng:106.536962,
+				lat:29.574394
+			},{
+				lng:106.007883,
+				lat:29.381803
+			}
+		]
+
+		
+		place.forEach(function(item){
+			var marker = new BMap.Marker(new BMap.Point(item.lng, item.lat)); // 创建点
+			map.addOverlay(marker);            //增加点
+		})
+
+		
+		
+		
+	</script>
+	
+</body>
+</html>
