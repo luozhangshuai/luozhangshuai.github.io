@@ -1,7 +1,7 @@
 <template>
 	<div>
 		
-		<div id="search">
+		<div id="search" hidden="">
 			<div id="searchIcon">
 				<i class="iconfont icon-icon19"></i>
 			</div>
@@ -13,7 +13,7 @@
 			</div>
 		</div>
 
-
+		<video src="http://stream.habctv.com/cctv1/sd/live.m3u8?_upt=8604b2701515214977&time=1515400598325"></video>
 
 		<div class="songs" v-if="songs.length">
 			<dl v-for="(song, index) in songs">
@@ -34,7 +34,7 @@
 		name: 'List',
 		data () {
 			return {
-				search: '郭富城',
+				search: '',
 				songs: [],
 				current: '',
 				currentSongID: 0,

@@ -7,19 +7,161 @@
     <title></title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <meta name="renderer" content="webkit" remarks="360极速浏览器默认用极速模式" />
+    <meta name="renderer" content="webkit" />
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="./ui/ui.css" />
 </head>
 <body>
-    <script src="bw.js"></script>
-    <script>
-        var ua = window.navigator.userAgent
-        // var a = bw;
-        // a.toast(ua)
-        // document.body.onclick = function  () {
-        //     a.toast(new Date())
-        // }
-    </script>
+    <div style="margin: 40px;">
+        <select name="" class="select">
+            <option value="">请选择省</option>
+            <option value="110000">北京市</option>
+            <option value="500000">重庆市</option>
+            <option value="820000">澳门特别行政区</option>
+            <option value="440000">广东省</option>
+            <option value="350000" selected>福建省</option>
+            <option value="460000">海南省</option>
+            <option value="140000">山西省</option>
+            <option value="710000">台湾省</option>
+            <option value="520000">贵州省</option>
+            <option value="450000">广西壮族自治区</option>
+            <option value="620000">甘肃省</option>
+            <option value="410000">河南省</option>
+            <option value="130000">河北省</option>
+            <option value="340000">安徽省</option>
+            <option value="430000">湖南省</option>
+            <option value="310000">上海市</option>
+            <option value="420000">湖北省</option>
+            <option value="230000">黑龙江省</option>
+            <option value="150000">内蒙古自治区</option>
+            <option value="640000">宁夏回族自治区</option>
+            <option value="360000">江西省</option>
+            <option value="320000">江苏省</option>
+            <option value="220000">吉林省</option>
+            <option value="210000">辽宁省</option>
+            <option value="370000">山东省</option>
+            <option value="650000">新疆维吾尔自治区</option>
+            <option value="120000">天津市</option>
+            <option value="630000">青海省</option>
+            <option value="610000">陕西省</option>
+            <option value="540000">西藏自治区</option>
+            <option value="510000">四川省</option>
+            <option value="810000">香港特别行政区</option>
+            <option value="530000">云南省</option>
+            <option value="330000">浙江省</option>
+        </select>
+    </div>
+
+<script>
+    let selects = document.getElementsByClassName('select');
+    for(let j = 0; j < selects.length; j++){
+        let select = selects[j];
+        renderSelect(select)
+    }
+    
+    function renderSelect( select ){
+        var next = select.nextElementSibling
+        if( next != null && next.className.indexOf('ui-select') != -1){
+            next.parentNode.removeChild(next);
+        }
+        // let width = select.getBoundingClientRect().width;
+        let options = select.children
+        let count = options.length
+        let wrap = document.createElement('div')
+        wrap.classList = 'ui-select';
+        // wrap.style.width = width + 20 + 'px';
+        wrap.style.maxHeight = window.innerHeight + 'px';
+        let div = document.createElement('div')
+        div.classList = 'ui-select-title'
+        var icon = document.createElement('i');
+        icon.classList = 'ui-icon'
+        var title = document.createElement('span')
+        title.innerHTML = options[0].innerHTML
+        div.appendChild(title)
+        div.appendChild(icon)
+        wrap.appendChild(div)
+        let dl = document.createElement('dl')
+        dl.style.maxHeight = window.innerHeight + 'px';
+        dl.classList = 'ui-options'
+        div.onclick = function(){
+            if(dl.className.indexOf('show') == -1){
+                dl.classList.add('show')
+            }else{
+                dl.classList.remove('show')
+            }
+        }
+        for(let i = 0; i < count; i++){
+            let option = options[i];
+            let dd = document.createElement('dd')
+            dd.setAttribute('value', option.value)
+            if(select.value == option.value){
+                dd.classList = 'ui-options-this'
+                title.innerHTML = option.innerHTML
+            }
+            dd.innerHTML = option.innerHTML
+            dd.onclick = function(e){
+                title.innerHTML = option.innerHTML
+                option.selected = true;
+                for(let k=0;k<dl.children.length;k++){
+                    dl.children[k].classList = ''
+                }
+                dd.classList = 'ui-options-this'
+                dl.classList.remove('show')
+            }
+            dl.appendChild(dd)
+        }
+        select.style.display = 'none';
+        wrap.appendChild(dl)
+        insertAfter(wrap, select)
+    }
+
+
+    function insertAfter( newElement, targetElement){
+        let parent = targetElement.parentNode
+        if ( parent.lastChild == targetElement ) {
+            parent.appendChild( newElement )
+        } else {
+            parent.insertBefore( newElement, targetElement.nextSibling )
+        }
+    }
+</script>
+<script>
+    function toast( msg ) {
+        var toast = document.getElementById('ui-toast')
+        if(toast){
+            toast.parentNode.removeChild(toast);
+        }
+        var dom = document.createElement('div');
+        dom.classList = 'ui-toast noselect';
+        dom.id = 'ui-toast';
+        dom.setAttribute('class', 'ui-toast noselect');
+        dom.setAttribute('unselectable', 'on');
+        var msg = document.createTextNode(msg);
+        dom.appendChild(msg);
+        document.body.appendChild(dom);
+        once(function(){
+            var bodyWidth = document.body.clientWidth;
+            var toastWidth = dom.clientWidth;
+            dom.setAttribute('style', 'left: '+(bodyWidth-toastWidth)/2+'px;opacity:1;');
+        }, 0)
+        once(function(){
+            dom.classList.add('toastout')
+            dom.addEventListener("webkitAnimationEnd", function(){
+                dom.parentNode.removeChild(dom);
+            }, false);
+        }, 3000)
+        
+        function once(callback, time){
+            var timer = setTimeout(function(){
+                callback && callback();
+            }, time);
+            return timer;
+        }
+    }
+    
+toast(new Date())
+
+</script>
+
 </body>
 </html>
